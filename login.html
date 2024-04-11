@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <title>Login</title>
+
+  <a href="index.html"> <button type="submit">⬅️</button></a>
+</head>
+
+<body>
+  <header>
+    <h1>Entre com sua conta</h1>
+  </header>
+  <section>
+    <form id="loginForm">
+      <label for="username">Usuário:</label>
+      <input type="text" id="username" name="username" required>
+
+      <label for="password">Senha:</label>
+      <input type="password" id="password" name="password" required>
+
+      <a href="index.html"> <button type="submit">Entrar</button></a>
+    </form>
+  </section>
+
+  <a href="registro.html"> <button type="submit">Ainda não possui uma conta? Registre-se</button></a>
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+      event.preventDefault(); // Prevent default form submission
+      
+      var username = document.getElementById("username").value;
+      var password = document.getElementById("password").value;
+      
+      // Verifique as credenciais do usuário
+      var users = JSON.parse(localStorage.getItem("users")) || [];
+      var user = users.find(function(u) {
+        return u.user === username && u.password === password;
+      });
+      
+      if (user) {
+        // Se as credenciais estiverem corretas, redirecione para index.html
+        localStorage.setItem("currentUser", JSON.stringify(user));
+        window.location.href = "index.html";
+      } else {
+        // Se as credenciais estiverem incorretas, exiba uma mensagem de erro
+        alert("Usuário ou senha incorretos. Por favor, tente novamente.");
+      }
+    });
+  </script> 
+
+  <script src="trabalho,php\login.php"></script>
+
+  <script src="login.js"></script>
+</body>
+
+</html>

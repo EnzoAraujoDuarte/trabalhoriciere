@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <title>Registro de Usuário</title>
+</head>
+
+<body>
+  <header>
+    <h1>Registro de Usuário</h1>
+  </header>
+  <section>
+    <form id="registrationForms">
+     
+      <label for="user">Usuário:</label>
+      <input type="text" id="user" name="user" required>
+
+      <label for="password">Senha:</label>
+      <input type="text" id="password" name="password" required>
+      
+      <label for="passwordconfirm">Confirme a Senha:</label>
+      <input type="text" id="passwordconfirm" name="passwordconfirm" required>
+            
+
+
+      <a href="login.html"> <button type="submit">Continue</button></a>
+    </form>
+  </section>
+  <script>
+    document.getElementById("registrationForms").addEventListener("submit", function(event) {
+      event.preventDefault(); // Prevent default form submission
+      
+      var user = document.getElementById("user").value;
+      var password = document.getElementById("password").value;
+      
+      // Verifique se o usuário já está registrado
+      var users = JSON.parse(localStorage.getItem("users")) || [];
+      var existingUser = users.find(function(u) {
+        return u.user === user;
+      });
+      
+      if (existingUser) {
+        alert("Este nome de usuário já está em uso. Por favor, escolha outro.");
+        return;
+      }
+      
+      // Armazene o novo usuário
+      users.push({ user: user, password: password });
+      localStorage.setItem("users", JSON.stringify(users));
+      
+      // Redirecione para login.html após o registro bem-sucedido
+      window.location.href = "login.html";
+    });
+  </script>
+
+  <script src="registro.js"></script>
+</body>
+
+</html>
